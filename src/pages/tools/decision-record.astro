@@ -1,0 +1,189 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="AI agent governance decision record builder"
+  description="Write down an agent's owner, action, scope and evidence path. Download a decision record for a permissions or approval review."
+>
+  <section class="page-intro wrap">
+    <p class="eyebrow">Decision record</p>
+    <h1>
+      Give the reviewer
+      <br />
+      something concrete
+    </h1>
+    <p class="lede">
+      Describe one action and its scope. This worksheet points out missing
+      information and exports a record your team can review.
+    </p>
+  </section>
+  <div class="tool-layout wrap">
+    <form class="tool-panel" id="decision-form">
+      <h2>The proposed authority</h2>
+      <div class="field">
+        <label for="owner">Responsible person or team</label>
+        <input
+          id="owner"
+          name="owner"
+          placeholder="Service team"
+          maxlength="200"
+          autocomplete="off"
+        />
+      </div>
+      <div class="field">
+        <label for="action">Action and target</label>
+        <input
+          id="action"
+          name="action"
+          placeholder="Read health metrics for the payments API"
+          maxlength="500"
+          autocomplete="off"
+        />
+      </div>
+      <div class="field">
+        <label for="scope">Assets and environment</label>
+        <input
+          id="scope"
+          name="scope"
+          placeholder="payments-api in production"
+          maxlength="500"
+          autocomplete="off"
+        />
+      </div>
+      <div class="field">
+        <label for="effect">Effect of the action</label>
+        <select id="effect" name="effect">
+          <option value="read">Reads data</option>
+          <option value="reversible">
+            Changes state with a tested recovery path
+          </option>
+          <option value="hard-to-reverse">
+            Changes state and is difficult to reverse
+          </option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="data">Data involved</label>
+        <select id="data" name="data">
+          <option value="ordinary">Ordinary operational data</option>
+          <option value="sensitive">Sensitive or customer data</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="scope-size">Reach</label>
+        <select id="scope-size" name="scopeSize">
+          <option value="one">One named target</option>
+          <option value="fleet">Many targets or an entire environment</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="evidence-location">
+          Where will the request, decision and result be kept?
+        </label>
+        <input
+          id="evidence-location"
+          name="evidenceLocation"
+          placeholder="Operations audit log, linked by request ID"
+          maxlength="500"
+          autocomplete="off"
+        />
+      </div>
+      <noscript>
+        <p class="no-script">
+          JavaScript is needed to generate the record. You can download the
+          plain policy template from Resources.
+        </p>
+      </noscript>
+    </form>
+    <section class="result-panel" aria-live="polite">
+      <p class="result-status">Review readiness</p>
+      <h2 id="record-status">Incomplete record</h2>
+      <ul id="record-reasons">
+        <li>Name the owner, action, scope and evidence path.</li>
+      </ul>
+      <p id="record-next">
+        Fill the fields before deciding who may approve the action.
+      </p>
+      <button type="button" class="button secondary" id="download-record">
+        Download the record
+      </button>
+      <p class="tool-note">
+        Your entries stay in your browser. Downloaded records are saved to your
+        device. The record is a review aid. It does not approve an action,
+        assess compliance or change any permissions.
+      </p>
+    </section>
+  </div>
+  <section class="policy-rules wrap">
+    <h2>Finish the decision with your team</h2>
+    <p>
+      Review the exact tool arguments, permissions and failure cases. Name the
+      approver, choose an expiry and record how access is revoked. A saved
+      worksheet only becomes a control when the running system enforces the
+      decision.
+    </p>
+    <p>
+      <a href="/guides/ai-agent-governance-policy/">
+        Adapt the policy template
+      </a>{" "}
+      or{" "}
+      <a href="/guides/ai-agent-risk-assessment/">
+        work through a risk assessment
+      </a>
+      .
+    </p>
+  </section>
+</Base>
+<script>
+  import { assessDecision } from "../../lib/policy.mjs";
+  const form = document.querySelector<HTMLFormElement>("#decision-form")!;
+  const value = (id: string) =>
+    (document.getElementById(id) as HTMLInputElement | HTMLSelectElement).value;
+  const getInput = () => ({
+    owner: value("owner"),
+    action: value("action"),
+    scope: value("scope"),
+    effect: value("effect"),
+    data: value("data"),
+    scopeSize: value("scope-size"),
+    evidenceLocation: value("evidence-location"),
+  });
+  function update() {
+    const result = assessDecision(getInput());
+    document.querySelector("#record-status")!.textContent = result.status;
+    const list = document.querySelector("#record-reasons")!;
+    list.replaceChildren(
+      ...result.reasons.map((reason: string) => {
+        const li = document.createElement("li");
+        li.textContent = reason;
+        return li;
+      }),
+    );
+    document.querySelector("#record-next")!.textContent = result.next;
+  }
+  form.addEventListener("input", update);
+  form.addEventListener("change", update);
+  form.addEventListener("submit", (e) => e.preventDefault());
+  update();
+  document.querySelector("#download-record")!.addEventListener("click", () => {
+    const request = getInput();
+    const record = {
+      kind: "draft-governance-decision",
+      request,
+      review: assessDecision(request),
+      finalDecision: "not recorded",
+      approver: "",
+      expiresAt: "",
+      revocationProcedure: "",
+    };
+    const url = URL.createObjectURL(
+      new Blob([JSON.stringify(record, null, 2)], { type: "application/json" }),
+    );
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "agent-governance-decision.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+</script>

@@ -1,0 +1,19 @@
+{
+  "example": true,
+  "description": "Illustrative fields, not a real event or a required standard.",
+  "correlation_id": "example-request-01",
+  "requester_identity": "example-user",
+  "agent_identity": "example-investigator",
+  "action": "read_service_health",
+  "target": "example-api",
+  "policy_version": "example-policy-3",
+  "decision": "allow",
+  "decision_reason": "Authorized target and declared read action",
+  "approval": null,
+  "execution": {
+    "status": "succeeded",
+    "result_reference": "example-redacted-result"
+  },
+  "sensitive_arguments_recorded": false,
+  "retention": "Choose a policy based on your requirements"
+}
