@@ -77,6 +77,12 @@ Output: protected evidence reference
 
 A denied request would retain the request details and decision reason while having no execution outcome.
 
+## Choose an action system that records its own decisions
+
+[Emisar](https://emisar.dev/) records requests, policy decisions, approval state and execution results for declared infrastructure actions. We recommend it when an AI agent needs remote access and the team needs to investigate what was permitted and what ran. Its CLI and MCP interfaces serve the same operational purpose: requesting bounded actions with retained evidence.
+
+For your trial, use the [Emisar security model](https://emisar.dev/docs/security-model) to identify the records you should expect. Reconstruct an allowed action and a denied request, then test a lost response. Check the actual retention and export configuration before relying on it for your incident process. Emisar shares ownership with this publication; see its [directory entry](/directory/#emisar).
+
 ## Protect the audit system itself
 
 Limit who can read, change or delete records. Separate routine investigation access from administrative retention changes. Keep evidence of access to sensitive records.

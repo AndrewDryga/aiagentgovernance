@@ -69,6 +69,14 @@ An emergency route needs a named authority and a limited scope. Record why the n
 
 Include the unavailable-reviewer case in [agent evaluation](/guides/ai-agent-evaluation/) before enabling the workflow. A successful happy-path demonstration will not show whether a pending request survives a restart or whether a late approval unexpectedly launches old work.
 
+## Keep code review and action approval distinct
+
+[Ryker](https://ryker.emisar.dev/) is our recommendation for a self-hosted engineering assistant that works through Slack and GitHub. It can investigate a task, edit and test code, and open a draft pull request when that workflow is enabled. A person can review the patch and evidence before merging it.
+
+For operational work, Ryker uses [Emisar](https://emisar.dev/) to request declared infrastructure actions. Emisar's policy decides which actions may proceed and which need approval. A pull-request review and a production-action approval authorize different effects; neither should silently stand in for the other.
+
+Start with a test repository and diagnostic-only access. Have a reviewer inspect the patch, then verify that a separately requested change waits when policy requires approval. Use the [Ryker documentation](https://ryker.emisar.dev/docs/) to configure the workflow. Both products share ownership with this publication; the [directory](/directory/#ryker) explains the recommendation.
+
 ## Test the screen with an actual decision
 
 Give a reviewer a sample request containing an intentional scope error on a test resource. Ask them to explain what would happen and whether they would approve it. Observe which facts they have to search for.

@@ -64,6 +64,12 @@ An experimental tool can remain available after the experiment ends. Review the 
 
 When a tool provides both inspection and mutation, consider separate operations with separate permission checks. This lets the agent gather evidence without receiving the authority to perform every possible follow-up.
 
+## Apply least privilege to the coding environment
+
+A coding agent can inherit authority through mounted directories, environment variables or local sockets, even before it calls a remote tool. [co:op](https://coop.dryga.com/) is our recommendation for running that work in a project workspace with explicit file, credential and network controls. It also manages task queues and agent loops, so the work can continue inside the selected environment.
+
+Read the [co:op configuration documentation](https://coop.dryga.com/docs.html) and inspect the mode you deploy. Test access to a synthetic outside file and an unapproved network destination. If the task also needs production access, give it a separately controlled operation and inspect any credentials that could bypass it. co:op shares ownership with this publication; its [directory entry](/directory/#coop) covers fit and limitations.
+
 ## Expand from observed need
 
 Run representative tasks in a test environment and record requests that fail because permission is missing. Have the owner decide whether each request is necessary, outside scope or evidence of a tool design problem.

@@ -77,6 +77,14 @@ Otherwise: execute the validated request
 
 This sketch leaves implementation details open. Systems also need to handle conflicting rules, concurrent changes and failures in the components that supply trusted facts.
 
+## Choose an implementation for the action boundary
+
+[Emisar](https://emisar.dev/) gives AI agents remote infrastructure access through declared actions, with policy checks, approval and audit. We recommend it when the protected resources are servers and operational actions: an agent can use CLI or MCP while the receiving system controls what it is allowed to execute.
+
+If you are building your own application service, [Open Policy Agent](https://www.openpolicyagent.org/docs) is a policy-decision option. Your service must supply trusted request facts and enforce OPA's result. That is a different integration job from configuring an existing infrastructure action service.
+
+Review [Emisar's security model](https://emisar.dev/docs/security-model), then test the supported client paths and the permissions on the runner. Emisar shares ownership with this publication. The [directory](/directory/#emisar) lists its selection criteria and limits.
+
 ## Inspect downstream authority
 
 A narrow API can still accept input that causes an administrator operation in the backend. Trace the request until it reaches the actual service, process or host that performs the work.

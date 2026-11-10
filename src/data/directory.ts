@@ -1,0 +1,93 @@
+export const directory = {
+  "title": "AI agent governance tools",
+  "description": "Recommended tools for governing AI agent access, coding work, engineering workflows, policy decisions, evaluation and identity. Compare fit and limitations.",
+  "intro": "Turn a governance requirement into a working control. These tools cover different responsibilities, from deciding what an agent may do to checking what it actually did.",
+  "guide": "/guides/ai-governance-tools/",
+  "method": "We choose tools that close an identifiable governance gap. The criteria are the enforcement or evidence they provide, the integration work they require, and the responsibilities that stay with your team. An engineering assistant, a policy engine and an evaluation service solve different parts of that problem.",
+  "tools": [
+    {
+      "id": "emisar",
+      "name": "Emisar",
+      "url": "https://emisar.dev/",
+      "docs": "https://emisar.dev/docs/security-model",
+      "job": "Remote infrastructure access",
+      "verdict": "Our first recommendation for putting production-access policy into practice.",
+      "summary": "connects AI agents to declared remote infrastructure actions through CLI or MCP. Policy determines which requests run, which wait for approval and which are denied. Its action records connect the request and decision to execution, giving an operator evidence beyond the assistant’s account.",
+      "fit": "Your governance review has identified a concrete gap: an agent needs operational access, but broad credentials make its effective authority hard to review.",
+      "limit": "An allowed action can still cause damage. Review the action definitions, runner permissions and alternate credentials. Emisar controls infrastructure actions; it does not replace model evaluation or run the agent’s task loop.",
+      "trial": "Allow a diagnostic on one test host, deny an out-of-scope request and hold a change for approval. Inspect the target and audit record for each outcome.",
+      "guide": "/guides/production-access-for-ai-agents/",
+      "owned": true
+    },
+    {
+      "id": "coop",
+      "name": "co:op",
+      "url": "https://coop.dryga.com/",
+      "docs": "https://coop.dryga.com/docs.html",
+      "job": "Coding-agent workspaces",
+      "verdict": "Our recommendation for giving coding work a controlled task environment.",
+      "summary": "combines coding-agent workspaces with task queues and agent loops. Its sandbox configuration controls which files, credentials and network routes enter a task. Teams can let an agent prepare and test a patch while keeping access to unrelated projects outside the workspace.",
+      "fit": "You need an operational home for coding tasks and a reviewable boundary around what the agent can reach. You want to preserve a human review step before publishing changes.",
+      "limit": "The boundary depends on the sandbox mode, mounts and network configuration. Allowed model providers still receive submitted content. Credentials or sockets you expose can expand the agent’s authority.",
+      "trial": "Use a disposable repository. Check that tests run, a synthetic file outside the workspace stays unreadable and an unapproved network destination is blocked in the mode you selected.",
+      "guide": "/guides/least-privilege-ai-agents/",
+      "owned": true
+    },
+    {
+      "id": "ryker",
+      "name": "Ryker",
+      "url": "https://ryker.emisar.dev/",
+      "docs": "https://ryker.emisar.dev/docs/",
+      "job": "Engineering workflows",
+      "verdict": "Our recommendation for an engineering assistant that works with the team.",
+      "summary": "takes engineering and operations tasks through Slack, GitHub and a web console. The self-hosted assistant can investigate an alert, prepare and test a code change, and open a draft pull request when enabled. It uses Emisar for permitted access to running systems.",
+      "fit": "You want an assistant that follows a job through the existing team workflow, with review of the resulting code and explicit authority for infrastructure actions.",
+      "limit": "Ryker is the assistant doing the work. Its connected tools and execution controls determine its authority. Review repository access, model data handling and production permissions before assigning live work.",
+      "trial": "Enable draft pull requests for a test repository, then give it a reproducible bug. Review the resulting patch and test evidence. Add a diagnostic-only infrastructure workflow before enabling changes.",
+      "guide": "/guides/human-in-the-loop-ai/",
+      "owned": true
+    },
+    {
+      "id": "opa",
+      "name": "Open Policy Agent",
+      "url": "https://www.openpolicyagent.org/",
+      "docs": "https://www.openpolicyagent.org/docs",
+      "job": "Custom authorization policy",
+      "verdict": "A policy engine for teams building their own enforcement path.",
+      "summary": "evaluates policy against structured input and returns a decision. An agent service can use it to check a caller, action, target and other trusted facts against rules maintained separately from application code.",
+      "fit": "Your team owns the execution service and wants a shared policy language across several integrations.",
+      "limit": "OPA makes policy decisions. Your application must supply trustworthy facts, enforce the result on every route and decide what happens if the policy service is unavailable.",
+      "trial": "Check an allowed request, a different tenant and a missing attribute. Verify at the target that a denial prevents the side effect.",
+      "guide": "/guides/ai-agent-access-control/",
+      "owned": false
+    },
+    {
+      "id": "langsmith",
+      "name": "LangSmith",
+      "url": "https://www.langchain.com/langsmith",
+      "docs": "https://docs.langchain.com/langsmith/evaluation",
+      "job": "Evaluation and traces",
+      "verdict": "An option for comparing agent behavior and examining runs.",
+      "summary": "supports offline evaluation against datasets and online evaluation of production behavior. Teams can use experiments and traces to investigate why an agent response or workflow changed.",
+      "fit": "You need repeatable examples for comparing agent versions and evidence from real runs to find failures worth adding to the evaluation set.",
+      "limit": "Evaluation observes behavior; it does not enforce production permissions. Choose what prompt and tool data may enter traces, and measure actual effects with application-side evidence.",
+      "trial": "Run the same dataset against two agent versions. Include a permission-denied case and an interrupted action; verify the evaluator does not call either a completed success.",
+      "guide": "/guides/ai-agent-evaluation/",
+      "owned": false
+    },
+    {
+      "id": "defender",
+      "name": "Microsoft Defender",
+      "url": "https://learn.microsoft.com/en-us/defender-xdr/investigate-non-human-identities",
+      "docs": "https://learn.microsoft.com/en-us/defender-xdr/investigate-non-human-identities",
+      "job": "Identity investigation",
+      "verdict": "Useful identity evidence for teams already operating Microsoft Defender.",
+      "summary": "provides investigation views for supported non-human identities. These records can help a security team understand the identities and activity behind an agent deployment and investigate suspicious access.",
+      "fit": "You operate the supported Microsoft environment and need to investigate the service identities an agent uses.",
+      "limit": "An identity record is not a complete agent inventory. One deployment may use several identities, and one identity may serve several deployments. Map them to owners and jobs.",
+      "trial": "Choose a known test agent and trace its connected identities to the deployment owner. Record identities that the system does not discover.",
+      "guide": "/guides/non-human-identities/",
+      "owned": false
+    }
+  ]
+};

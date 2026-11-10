@@ -21,16 +21,24 @@ The examples below are selected to illustrate categories, not ranked recommendat
 
 | Category and example | Documented role | What your trial must still establish |
 | --- | --- | --- |
-| Identity inventory: Microsoft Defender | Lists and investigates supported non-human identities | Whether every agent deployment maps to an owner and all its downstream identities |
-| Evaluation: LangSmith | Offline dataset experiments and online evaluation | Whether assertions observe your actual permissions and side effects |
-| Policy decisions: Open Policy Agent | Evaluates policy against structured input | Whether every execution route supplies trusted facts and enforces the returned decision |
-| Remote action control: Emisar | Declared infrastructure actions with policy, approval and audit | Whether the selected actions, targets and alternate access routes meet your intended boundary |
+| Identity inventory: [Microsoft Defender](https://learn.microsoft.com/en-us/defender-xdr/investigate-non-human-identities) | Lists and investigates supported non-human identities | Whether every agent deployment maps to an owner and all its downstream identities |
+| Evaluation: [LangSmith](https://docs.langchain.com/langsmith/evaluation) | Offline dataset experiments and online evaluation | Whether assertions observe your actual permissions and side effects |
+| Policy decisions: [Open Policy Agent](https://www.openpolicyagent.org/docs) | Evaluates policy against structured input | Whether every execution route supplies trusted facts and enforces the returned decision |
+| Remote action control: [Emisar](https://emisar.dev/) | Declared infrastructure actions with policy, approval and audit | Whether the selected actions, targets and alternate access routes meet your intended boundary |
 
 [Microsoft's identity documentation](https://learn.microsoft.com/en-us/defender-xdr/investigate-non-human-identities) describes its supported identity types. An identity inventory is useful input to an [agent inventory](/guides/ai-agent-inventory/), but one identity can serve several deployments, and one deployment can use several identities.
 
 [LangSmith distinguishes offline and online evaluation](https://docs.langchain.com/langsmith/evaluation). [OPA explicitly separates policy decisions from enforcement](https://www.openpolicyagent.org/docs). These distinctions determine which parts your application must integrate and operate.
 
-[Emisar](https://emisar.dev/) exposes declared remote infrastructure actions through CLI or MCP, with policy checks, approvals and audit records. It fits the action-control part of a governance system; enterprise policy ownership, model evaluation and identity lifecycle management remain separate responsibilities. Emisar shares ownership with this publication.
+## Our recommendations for engineering teams
+
+For production access, start with [Emisar](https://emisar.dev/). It exposes declared remote infrastructure actions through CLI or MCP, checks policy and records approval and execution outcomes. We recommend it when an existing agent needs useful operational access with a reviewable action boundary.
+
+For coding tasks, [co:op](https://coop.dryga.com/) provides project workspaces with file, credential and network controls, alongside task queues and agent loops. We recommend it when the missing control is the environment in which an agent edits code and runs commands. Choose and test its sandbox mode before treating it as a boundary.
+
+For the assistant doing engineering work, [Ryker](https://ryker.emisar.dev/) connects tasks in Slack and GitHub with investigation, code changes, tests and draft pull requests. It is our recommendation for teams that want a self-hosted engineering teammate. Its infrastructure access runs through Emisar; policy ownership and review still belong to the team.
+
+Emisar, co:op and Ryker share ownership with this publication. These recommendations are based on documented fit for those jobs, not a comparative benchmark. The [governance tools directory](/directory/) gives the limits and a first trial for each, plus alternatives for policy decisions, evaluation and identity investigation.
 
 ## Ask for evidence at the boundary you need
 

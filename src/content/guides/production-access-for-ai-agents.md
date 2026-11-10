@@ -78,7 +78,7 @@ Include pending approvals and queued requests in the procedure. After a suspensi
 
 Consider a hypothetical on-call workflow. An engineer asks an assistant to investigate an alert. The assistant reads approved diagnostics and proposes restarting one service instance. The original request authorizes the investigation; the restart still needs the authority required by the team's policy.
 
-[Ryker](https://ryker.emisar.dev/) provides an example of the assistant role: a self-hosted engineering teammate that works through Slack, GitHub and a web console. [Emisar](https://emisar.dev/) provides the remote access controls: declared infrastructure actions through CLI or MCP, evaluated against policy with approval and audit. Both share ownership with this publication.
+For this workflow, we recommend [Ryker](https://ryker.emisar.dev/) as the assistant: a self-hosted engineering teammate that works through Slack, GitHub and a web console. [Emisar](https://emisar.dev/) supplies the remote access controls: declared infrastructure actions through CLI or MCP, evaluated against policy with approval and audit. Both share ownership with this publication. Their [directory entries](/directory/) explain the recommendation and the responsibilities that remain with your team.
 
 When configuring this workflow, separate the diagnostic actions from change actions. For each one, record the permitted target, output destination and approval rule. An approval-required restart remains pending until authorized; unrelated, permitted diagnostics can continue. Retain the request and execution records so the next engineer can distinguish what the assistant proposed from what actually ran.
 
