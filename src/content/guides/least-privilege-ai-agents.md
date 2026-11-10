@@ -19,15 +19,14 @@ sources:
     url: "https://kubernetes.io/docs/concepts/security/rbac-good-practices/"
   - title: "OWASP Excessive Agency"
     url: "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+answer: "Least privilege gives an AI agent only the authority needed for its assigned work. Apply it to the tools the agent can call, the resources those tools can reach and the credentials used downstream. A short tool menu can still hide broad administrator access."
 ---
-
-Least privilege gives an AI agent only the authority needed for its assigned work. Apply it to the tools the agent can call, the resources those tools can reach and the credentials used downstream. A short tool menu can still hide broad administrator access.
 
 Start with one task the agent must complete. For a deployment investigator, that might mean reading release metadata and selected health information for one service. Build the initial permission set around that task.
 
 ## Separate the permissions by purpose
 
-A useful review asks what each permission contributes. Avoid granting a general engineering role merely because it already exists.
+A useful [access-control review](/guides/ai-agent-access-control/) asks what each permission contributes. Avoid granting a general engineering role merely because it already exists.
 
 | Task need                          | Narrower permission choice                            |
 | ---------------------------------- | ----------------------------------------------------- |
@@ -51,7 +50,7 @@ An apparently read-only operation also deserves inspection. It can expose privat
 
 ## Limit the duration of authority
 
-Some work runs continuously; some exists for one task. Tie temporary work to a lifecycle so its authority does not remain after the job ends.
+Some work runs continuously; some exists for one task. Tie temporary work to the [agent lifecycle](/guides/ai-agent-lifecycle/) so its authority does not remain after the job ends.
 
 [AWS recommends temporary credentials for workloads](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html), with permissions scoped to the required operations and resources. In another environment, use the identity mechanisms that environment supports and document their limits.
 

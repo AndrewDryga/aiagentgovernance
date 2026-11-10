@@ -1,0 +1,6 @@
+capability,question,evidence_state,evidence_reference,scope_and_version,gap,possible_consequence,next_action,owner,completion_condition,review_trigger
+Inventory and ownership,Can an operator find the accountable owner for each active deployment?,,,,,,,,,
+Authority,Does actual access match the assigned task through every supported route?,,,,,,,,,
+Review,Does execution match the specific current approval?,,,,,,,,,
+Evidence,Can another operator reconstruct completed and uncertain actions?,,,,,,,,,
+Lifecycle,"Can the team suspend, update and retire authority with evidence?",,,,,,,,,

@@ -1,7 +1,7 @@
 ---
 title: "AI governance vs AI security"
 description: "Understand how governance decisions and security controls work together in an agent deployment."
-category: Basics
+category: "Foundations"
 primaryKeyword: "ai governance vs ai security"
 relatedKeywords:
   - "ai agent governance"
@@ -19,9 +19,8 @@ sources:
     url: "https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/"
   - title: "OWASP Excessive Agency"
     url: "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+answer: "AI governance sets responsibility and rules for how an organization uses AI. AI security protects the systems, data and operations involved. The two meet whenever a policy decision needs technical enforcement, such as restricting an agent to one customer's resources."
 ---
-
-AI governance sets responsibility and rules for how an organization uses AI. AI security protects the systems, data and operations involved. The two meet whenever a policy decision needs technical enforcement, such as restricting an agent to one customer's resources.
 
 For a tool-using agent, both are necessary. A team can have well-designed access checks while lacking an owner for the deployment. It can also have a carefully written policy whose rules never reach the service that performs the work.
 
@@ -67,12 +66,12 @@ Also look for the reverse gap: controls without an owner. A denied request may b
 
 Ask a prospective tool provider which part of the process it implements. An identity service, approval workflow, model evaluation tool and incident assistant solve different parts of the problem.
 
-Request a demonstration using an ordinary case and a prohibited case from your own workflow. Determine who configures the rules, where enforcement happens and which evidence is retained. Record any responsibilities left to your team.
+Use the [governance tool evaluation worksheet](/guides/ai-governance-tools/) to request a demonstration using an ordinary case and a prohibited case from your own workflow. Determine who configures the rules, where enforcement happens and which evidence is retained. Record any responsibilities left to your team.
 
 Avoid treating a product's use of "governance" as a complete scope statement. Write down the exact capabilities you need and the organizational decisions that remain yours.
 
 ## Keep the shared record small enough to maintain
 
-For each deployment, retain its purpose, owner, permission scope, relevant test results and accepted exceptions. Link detailed security findings where needed. Update the record when changes affect those decisions.
+For each deployment, use the [governance framework](/guides/ai-agent-governance-framework/) to retain its purpose, owner, permission scope, relevant test results and accepted exceptions. Link detailed security findings where needed. Update the record when changes affect those decisions.
 
 During review, ask the owner to explain the current scope and ask an engineer to demonstrate it. A disagreement between those two accounts gives the team a specific issue to resolve.

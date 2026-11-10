@@ -1,0 +1,7 @@
+signal,definition,population_or_unit,window,threshold,owner,evidence_source,response_procedure,delivery_test_reference,limitations
+Task completion,Tasks meeting defined outcome / tasks with completed assessment,Report incomplete assessments separately,,,,,,,
+Policy evaluation errors,Requests with no usable policy decision / evaluation attempts,All attempted evaluations,,,,,,,
+Denial rate,Explicit denials / completed policy evaluations,Do not count evaluation outages as denials,,,,,,,
+Pending approval age,Elapsed time since proposal creation,Duration for each still-pending request,,,,,,,
+Unknown operations,Accepted operations without established outcome,Count with age and affected scope,,,,,,,
+Repeated effects,Effects exceed the authorized repetition for a request,Target-side effect count per request,,,,,,,

@@ -1,7 +1,7 @@
 ---
 title: "Write an AI governance policy for agents"
 description: "Use a practical policy structure that connects agent permissions to owners and enforcement."
-category: Templates
+category: "Reviews & policy"
 primaryKeyword: "ai governance policy"
 relatedKeywords:
   - "ai agent governance"
@@ -17,9 +17,8 @@ sources:
     url: "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
   - title: "OWASP Transaction Authorization Cheat Sheet"
     url: "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html"
+answer: "An AI governance policy for agents should tell an engineer what the agent may do and tell an operator what to do when it reaches a limit. Statements such as \"use AI responsibly\" leave both people guessing. Write rules about specific work, affected resources and accountable decisions."
 ---
-
-An AI governance policy for agents should tell an engineer what the agent may do and tell an operator what to do when it reaches a limit. Statements such as "use AI responsibly" leave both people guessing. Write rules about specific work, affected resources and accountable decisions.
 
 The policy below is an engineering starting point. Organizations with obligations concerning personal data, employment, regulated services or particular jurisdictions need qualified review of those matters. A policy document does not establish compliance by itself.
 
@@ -27,7 +26,7 @@ The policy below is an engineering starting point. Organizations with obligation
 
 Define an agent by its deployed purpose and tool access. Include internal assistants when they can read protected information or cause changes. A shared chat interface can contain several deployments with different authority.
 
-Record the policy owner, effective date and review trigger. Link the policy to an inventory containing the accountable owner for each agent. The inventory should also identify deployments that are paused or being retired, because their credentials may still exist.
+Record the policy owner, effective date and review trigger. Link the policy to an [agent inventory](/guides/ai-agent-inventory/) containing the accountable owner for each agent. The inventory should also identify deployments that are paused or being retired, because their credentials may still exist.
 
 [NIST's governance guidance](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/) includes organizational responsibilities and risk-management processes. Your local policy needs to turn those responsibilities into decisions people can perform.
 
@@ -94,7 +93,7 @@ Write down how the policy handles partial completion. An agent might finish one 
 
 Also cover delegation. If an agent calls another service or another agent, the original resource limits must remain meaningful. A policy that applies only to the first process leaves the downstream authority unexplained.
 
-Define retirement as a task with evidence: disable new work, resolve pending requests, remove unneeded credentials and preserve required records under the organization's retention policy.
+Define [retirement as a lifecycle transition](/guides/ai-agent-lifecycle/) with evidence: disable new work, resolve pending requests, remove unneeded credentials and preserve required records under the organization's retention policy.
 
 ## Review whether people can follow it
 

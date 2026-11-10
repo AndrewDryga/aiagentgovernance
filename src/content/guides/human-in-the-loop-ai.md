@@ -17,9 +17,8 @@ sources:
     url: "https://airc.nist.gov/airmf-resources/airmf/appendices/app-c-ai-risk-management-and-human-ai-interaction/"
   - title: "OWASP Transaction Authorization Cheat Sheet"
     url: "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html"
+answer: "Human in the loop AI puts a person into a decision or review process. For an agent that can act on systems, the useful question is where that person intervenes and what they can still change. Reviewing a production action after it finishes serves a different purpose from approving it beforehand."
 ---
-
-Human in the loop AI puts a person into a decision or review process. For an agent that can act on systems, the useful question is where that person intervenes and what they can still change. Reviewing a production action after it finishes serves a different purpose from approving it beforehand.
 
 A review step needs a real decision. If the person sees only the agent's reassuring summary and a button marked "Approve," they may have no practical way to judge the request.
 
@@ -40,7 +39,7 @@ A deployment can use more than one. An engineer may approve the initial diagnost
 
 ## Show the facts that affect the decision
 
-For a production change, include the exact target, requested operation and arguments that control its scope. Explain the expected customer effect and identify evidence supporting the proposal. Link to original observations when the reviewer needs to inspect them.
+For a production change, include the exact target, requested operation and arguments that control its scope. The [worked governance records](/guides/ai-governance-examples/) show what a reviewer can accept, restrict or decline. Explain the expected customer effect and identify evidence supporting the proposal. Link to original observations when the reviewer needs to inspect them.
 
 Separate observed facts from the agent's interpretation. "The health endpoint failed at 14:05" is an observation. "A restart will fix it" is a prediction. A reviewer may agree with the observation and reject the proposed response.
 
@@ -68,7 +67,7 @@ The agent needs a defined next step when its reviewer is offline. It may continu
 
 An emergency route needs a named authority and a limited scope. Record why the normal path was unavailable and what the emergency decision permitted. Afterward, check whether that access was removed.
 
-Test the unavailable-reviewer case before enabling the workflow. A successful happy-path demonstration will not show whether a pending request survives a restart or whether a late approval unexpectedly launches old work.
+Include the unavailable-reviewer case in [agent evaluation](/guides/ai-agent-evaluation/) before enabling the workflow. A successful happy-path demonstration will not show whether a pending request survives a restart or whether a late approval unexpectedly launches old work.
 
 ## Test the screen with an actual decision
 

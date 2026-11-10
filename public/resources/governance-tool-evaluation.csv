@@ -1,0 +1,10 @@
+requirement,candidate,documentation_reference,documented_scope,trial_setup,actual_observation,evidence_reference,status,uncovered_routes,integration_owner,operating_work,follow_up
+Connect deployment to accountable owner,,,,,,,,,,,
+Discover effective downstream identities,,,,,,,,,,,
+Deny unassigned target before effect,,,,,,,,,,,
+Bind approval to exact action and expiry,,,,,,,,,,,
+Handle dependency outage,,,,,,,,,,,
+Reconcile lost execution response,,,,,,,,,,,
+Export sufficient evidence,,,,,,,,,,,
+Protect sensitive trace data,,,,,,,,,,,
+Suspend new and queued work,,,,,,,,,,,

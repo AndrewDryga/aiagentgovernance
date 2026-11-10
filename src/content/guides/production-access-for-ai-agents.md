@@ -19,9 +19,8 @@ sources:
     url: "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
   - title: "MCP Security Best Practices"
     url: "https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices"
+answer: "Production access for an AI agent should begin with a specific operational job and the smallest set of actions that makes it useful. Reading a service's health, collecting diagnostics and changing its configuration are separate capabilities. Decide which ones the deployment needs before giving it credentials."
 ---
-
-Production access for an AI agent should begin with a specific operational job and the smallest set of actions that makes it useful. Reading a service's health, collecting diagnostics and changing its configuration are separate capabilities. Decide which ones the deployment needs before giving it credentials.
 
 The access route can be a CLI, an API or MCP. Each still needs a clear answer to the same question: what can the receiving system actually do on this agent's behalf?
 
@@ -29,7 +28,7 @@ The access route can be a CLI, an API or MCP. Each still needs a clear answer to
 
 Choose a service whose owner can explain the normal operating state and recognize a useful result. Give the agent access to approved telemetry and a narrow set of diagnostic operations.
 
-Define the output destination as part of the task. Permission to read internal logs does not imply permission to send them to any external system. Filter sensitive fields before they enter the agent's context when the workflow does not require them.
+Use the [risk assessment](/guides/ai-agent-risk-assessment/) to define the output destination as part of the task. Permission to read internal logs does not imply permission to send them to any external system. Filter sensitive fields before they enter the agent's context when the workflow does not require them.
 
 The first acceptance test should show the complete path: the agent requests an allowed diagnostic, the intended system executes it, and an operator can find the result and its audit record.
 
@@ -49,7 +48,7 @@ If an interface exposes declared remote actions, also review each action definit
 
 After diagnostics are useful, select a change with a clear precondition and a known recovery procedure. Define the resource scope and any concurrency or rate limits.
 
-A restart request, for example, should identify the exact service instance. It should also explain the expected disruption and how the operator will check recovery. If human approval is required, execution waits until the specific request is authorized.
+A restart request, for example, should identify the exact service instance. It should also explain the expected disruption and how the operator will check recovery. If [human approval](/guides/human-in-the-loop-ai/) is required, execution waits until the specific request is authorized.
 
 Avoid granting a broad maintenance role just to unblock one operation. [AWS's IAM guidance](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) recommends permissions limited to required actions and resources. Apply that reasoning to the downstream account as well as the visible tool.
 

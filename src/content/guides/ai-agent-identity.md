@@ -19,11 +19,10 @@ sources:
     url: "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
   - title: "NIST Zero Trust Architecture"
     url: "https://csrc.nist.gov/pubs/sp/800/207/final"
+answer: "AI agent identity lets a receiving system distinguish one agent deployment from another. That identity helps the system apply the right permissions and helps operators attribute the resulting work. The model name is useful deployment information, but it does not establish which running agent made a request."
 ---
 
-AI agent identity lets a receiving system distinguish one agent deployment from another. That identity helps the system apply the right permissions and helps operators attribute the resulting work. The model name is useful deployment information, but it does not establish which running agent made a request.
-
-A single task can involve several identities: the person asking for help, the agent deployment, a tool service and the account used on the target. Keep those roles visible as the request moves between systems.
+Within the broader [non-human identity estate](/guides/non-human-identities/), a single task can involve several identities: the person asking for help, the agent deployment, a tool service and the account used on the target. Keep those roles visible as the request moves between systems.
 
 ## Distinguish the requester from the executor
 
@@ -41,7 +40,7 @@ These may be separate records even when one organization operates all the compon
 
 ## Choose identities with a manageable lifecycle
 
-Define how an identity is created, assigned permissions, rotated and retired. Tie it to an owner who can respond when its behavior changes.
+Define how an identity is created, assigned permissions, rotated and retired in the [agent lifecycle record](/guides/ai-agent-lifecycle/). Tie it to an owner who can respond when its behavior changes.
 
 For software running on infrastructure you control, workload identity can reduce the need to distribute long-lived credentials. [SPIFFE defines standards for identifying software workloads](https://spiffe.io/docs/latest/spiffe-about/overview/), including short-lived identity documents. It is one option; the right choice depends on the platforms you already operate.
 

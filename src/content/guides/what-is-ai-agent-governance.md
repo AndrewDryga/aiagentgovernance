@@ -1,7 +1,7 @@
 ---
 title: "What is AI agent governance?"
 description: "Understand who should own an AI agent, what it may do, and how to review its actions."
-category: Basics
+category: "Foundations"
 primaryKeyword: "ai agent governance"
 relatedKeywords:
   - "agentic ai governance"
@@ -17,11 +17,12 @@ sources:
     url: "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
   - title: "OWASP Excessive Agency"
     url: "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+answer: "AI agent governance is the set of decisions about who owns an agent, which work it may perform, and how people can inspect or stop that work. For an agent that can use tools, governance reaches into the systems those tools control. A sensible answer in a chat window can still lead to an inappropriate action on a server."
 ---
 
-AI agent governance is the set of decisions about who owns an agent, which work it may perform, and how people can inspect or stop that work. For an agent that can use tools, governance reaches into the systems those tools control. A sensible answer in a chat window can still lead to an inappropriate action on a server.
-
 Consider an agent investigating a slow application. It might need recent error counts and a deployment history. Restarting the application is a separate decision. Reading customer records is another. Someone must decide which of those actions belongs to the task, then make the decision enforceable.
+
+The [governance and AI security comparison](/guides/ai-governance-vs-ai-security/) separates ownership and use decisions from the technical controls that help enforce them. Both belong in a deployment review.
 
 ## Begin with a named job and owner
 
@@ -66,6 +67,33 @@ A useful action record identifies the agent, the requested operation and the tar
 Record unsuccessful requests. Repeated denials can expose a missing integration, an unclear task or an attempted misuse. Those possibilities need different responses.
 
 Keep sensitive content out of routine records when it is unnecessary. For example, a record can say that a protected dataset was accessed without copying the dataset into the audit system.
+
+## Follow one request through the people and systems involved
+
+In this hypothetical deployment, the payments team owns an incident assistant. An engineer asks it to explain a rise in checkout errors. The assistant may read a filtered diagnostic view for that service. It has no authority to change customer records.
+
+| Participant or component | Responsibility in this request |
+| --- | --- |
+| Requesting engineer | States the incident and intended scope |
+| Payments owner | Accepts the diagnostic use and its data boundary |
+| Agent deployment | Chooses among available diagnostic operations |
+| Tool service | Verifies identity and enforces the assigned service scope |
+| Receiving system | Performs the permitted read and returns bounded evidence |
+| On-call engineer | Reviews any separate proposal to change the service |
+
+The [inventory](/guides/ai-agent-inventory/) connects this deployment to its owner and identities. The [access policy](/guides/ai-agent-access-control/) expresses what the receiving systems must enforce. The [audit trail](/guides/ai-agent-audit-trail/) connects the request to what actually happened.
+
+Suppose the assistant reads the permitted diagnostics and proposes restarting one instance. The current read permission does not authorize the restart. The owner can keep that action unavailable or approve a separately tested change workflow. If the service is healthy again by the time review finishes, the operator should check whether the proposal is still needed.
+
+If the diagnostic request times out after dispatch, a useful assistant says the outcome is unknown and checks its operation record. A governance review should require that behavior before the deployment gains a change capability. Otherwise a routine retry can turn one approved effect into several.
+
+## Start at the stage that needs a decision
+
+Before first use, write a purpose and owner record, then perform a [risk assessment](/guides/ai-agent-risk-assessment/). Before granting access, collect the evidence in the [governance checklist](/guides/ai-governance-checklist/). During use, watch [operational signals](/guides/ai-agent-monitoring/) that have a named responder.
+
+When the deployment changes, use its [lifecycle record](/guides/ai-agent-lifecycle/) to compare old and new authority. When it is retired, verify that its credentials and queued work have been dealt with. Keeping the inventory entry as retired preserves history without implying the agent is still permitted to run.
+
+These are engineering decisions within a broader organization. An agent used for employment, healthcare or other consequential decisions needs review by people who understand that domain and its obligations. A technical permission check cannot decide whether the underlying use is appropriate.
 
 ## Review the deployment when its authority changes
 

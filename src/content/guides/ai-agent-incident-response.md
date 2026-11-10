@@ -17,15 +17,14 @@ sources:
     url: "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf"
   - title: "OWASP Logging Cheat Sheet"
     url: "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+answer: "When an AI agent behaves unexpectedly, first establish what it has requested and what the receiving systems have actually done. A strange message is a signal to investigate. A confirmed unauthorized operation may require immediate containment. Keep those findings separate while you determine the scope."
 ---
-
-When an AI agent behaves unexpectedly, first establish what it has requested and what the receiving systems have actually done. A strange message is a signal to investigate. A confirmed unauthorized operation may require immediate containment. Keep those findings separate while you determine the scope.
 
 Use your organization's incident process and assign a human response lead. An affected agent can provide evidence, but its account should be checked against tool and target-system records.
 
 ## Prepare the controls before an incident
 
-Maintain a current owner and contact route for each deployed agent. Operators need access to its request history, permission configuration and execution records.
+Maintain a current owner and contact route in the [agent inventory](/guides/ai-agent-inventory/). Operators need access to its request history, permission configuration and execution records.
 
 Document how to stop new work, disable an identity and inspect accepted operations. Include the effect of each control. Pausing a scheduler may leave running tasks active. Revoking a token may leave an already dispatched operation untouched.
 
@@ -65,7 +64,7 @@ Treat suspicious text in tickets, files or tool output as evidence. Do not feed 
 
 ## Reconstruct the sequence
 
-Build a timeline from records produced by the components involved. Separate what the agent proposed, what policy permitted, what a person approved and what the executor completed.
+Build a timeline from the [audit records](/guides/ai-agent-audit-trail/) produced by the components involved. Separate what the agent proposed, what policy permitted, what a person approved and what the executor completed.
 
 Look for the first point where the request exceeded its intended scope. Possible causes include an authorization defect, an overbroad credential, a tool implementation error or misleading input. Several can contribute to one incident.
 

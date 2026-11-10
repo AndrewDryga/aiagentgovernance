@@ -17,11 +17,10 @@ sources:
     url: "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
   - title: "NIST Incident Response Recommendations, SP 800-61r3"
     url: "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf"
+answer: "An AI agent audit trail should let another person reconstruct a consequential request: who asked, what the system authorized, what actually ran and what happened afterward. A chat transcript can explain the surrounding conversation, but it rarely contains enough evidence to answer those questions on its own."
 ---
 
-An AI agent audit trail should let another person reconstruct a consequential request: who asked, what the system authorized, what actually ran and what happened afterward. A chat transcript can explain the surrounding conversation, but it rarely contains enough evidence to answer those questions on its own.
-
-Begin with one operation. Follow it from request creation to the target system and back. At every step, decide which facts belong in the record and which component can reliably supply them.
+Begin with one operation from the [agent inventory](/guides/ai-agent-inventory/). Follow it from request creation to the target system and back. At every step, decide which facts belong in the record and which component can reliably supply them.
 
 ## Record decisions and outcomes separately
 
@@ -38,7 +37,7 @@ A request can be valid but denied by policy. It can receive approval and then ex
 
 These are example fields for designing a record, not a mandatory standard. A system may combine some events while preserving their meaning.
 
-A timeout should leave an uncertain outcome visible until the system can reconcile it. Recording "failed" solely because the client stopped waiting can lead someone to repeat an operation that already happened.
+A timeout should leave an uncertain outcome visible until the system can reconcile it. Use the same states in [live agent monitoring](/guides/ai-agent-monitoring/) so alerts agree with the retained record. Recording "failed" solely because the client stopped waiting can lead someone to repeat an operation that already happened.
 
 ## Use identifiers to connect the record
 

@@ -1,7 +1,7 @@
 ---
 title: "An AI agent governance framework for engineering teams"
 description: "Build a repeatable review process for agent ownership, access, testing and changes."
-category: Templates
+category: "Reviews & policy"
 primaryKeyword: "ai agent governance framework"
 relatedKeywords:
   - "ai governance framework"
@@ -17,9 +17,8 @@ sources:
     url: "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
   - title: "OWASP Authorization Cheat Sheet"
     url: "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
+answer: "An AI agent governance framework gives a team a repeatable way to decide whether an agent is ready for a particular job. It should connect a named owner to documented permissions and evidence from testing. A review that ends with \"approved\" but leaves those details unresolved is difficult to maintain."
 ---
-
-An AI agent governance framework gives a team a repeatable way to decide whether an agent is ready for a particular job. It should connect a named owner to documented permissions and evidence from testing. A review that ends with "approved" but leaves those details unresolved is difficult to maintain.
 
 Use the following engineering process for one deployment at a time. It is a starting point for managing operational decisions, not a certification scheme or a complete enterprise governance program.
 
@@ -75,6 +74,42 @@ An exception should say what changed, why it is necessary, who accepted the risk
 If an exception cannot expire automatically, assign its removal to a named person and put the deadline in the team's existing work tracker. Review whether the underlying need belongs in the supported workflow.
 
 Some requests should remain unavailable until the system can enforce them properly. Record that limit so the next person does not interpret a missing feature as an accidental configuration problem.
+
+## Complete one review before scaling the process
+
+This hypothetical record concerns `checkout-investigator`, an assistant that reads selected service telemetry. The names and evidence identifiers below are invented to show how a completed decision could look; they do not represent tests performed by this site.
+
+| Review field | Example disposition |
+| --- | --- |
+| Owner | Checkout engineering; on-call lead owns suspension |
+| Candidate | Deployment revision 12; diagnostics policy revision 3 |
+| Approved purpose | Explain checkout failures from selected health and release data |
+| Data boundary | Filtered telemetry; no customer payloads; incident record only |
+| Authority | Read checkout diagnostics; no restart, export or identity changes |
+| Illustrative evidence | Task replay T1; cross-service denial T2; suspension exercise T3 |
+| Remaining gap | Lost-response recovery for a proposed restart has not been tested |
+| Decision | Permit the diagnostic scope; keep restart capability disabled |
+| Next review | Before adding a write action or a new output destination |
+
+The gap does not disappear because the diagnostic tests passed. Its effect is explicit: the release remains read-only. A later proposal to add restarting must supply the missing evidence and a new decision. The [evaluation guide](/guides/ai-agent-evaluation/) explains how to design those tests; the [risk record](/guides/ai-agent-risk-assessment/) keeps the unresolved scenario visible.
+
+### Handle an ownership handoff
+
+Suppose the platform team takes over this deployment. The handoff needs more than changing the owner field. The receiving team should find the permission configuration, inspect a retained request, exercise suspension on test resources and accept responsibility for open exceptions. Confirm that alert and approval routes reach that team.
+
+If the new owner cannot operate the stop control, record the handoff as incomplete. Decide whether the existing owner remains responsible or the deployment should pause. An inventory entry naming a team that lacks the required access is misleading.
+
+### Fit the process into enterprise governance
+
+Enterprise AI governance may set organization-wide data rules, vendor requirements and review obligations. Keep those decisions with their established owners. The deployment record should link to the relevant decisions and explain its scope, rather than copy a large corporate policy into every agent review.
+
+For example, a central data owner may approve use of one telemetry class. The service owner still decides which diagnostic operations belong to this agent. Platform engineering supplies the identity and enforcement path. A domain reviewer may need to assess the consequence of the assistant's recommendation. Record an unresolved dependency if any required decision is missing.
+
+Start with one workflow, then reuse its evidence format for similar deployments. If the organization adopts NIST's framework, the [NIST AI RMF mapping](/guides/nist-ai-rmf-for-agents/) can connect these local records to its functions. The mapping is a navigation aid for review; it does not confer certification.
+
+Download the [release review worksheet](/resources/agent-release-review.md) to capture scope, evidence, gaps and the final decision in one place.
+
+Use the [governance maturity review](/guides/ai-governance-maturity-model/) to assess each capability against its documented acceptance conditions. It keeps missing, failed and partial evidence visible without turning the review into a single score.
 
 ## Use changes to trigger review
 
