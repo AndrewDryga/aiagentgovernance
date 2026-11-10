@@ -74,6 +74,12 @@ An operator should know how to block new requests and how to inspect work alread
 
 Include pending approvals and queued requests in the procedure. After a suspension, require a deliberate recovery decision so old work does not resume unexpectedly. Verify the procedure with the people who will use it during an incident.
 
-## Tools from this site's publisher
+## Example: investigate an alert before approving a change
 
-[Emisar](https://emisar.dev/) gives existing agents access to declared remote infrastructure actions through CLI or MCP, with policies, approvals and audit. [Ryker](https://ryker.emisar.dev/) is a self-hosted engineering and on-call teammate that investigates work from Slack or GitHub. [co:op](https://coop.dryga.com/) provides a sandbox for coding work. These are affiliated projects with different roles; deployment owners still choose the permitted systems and actions.
+Consider a hypothetical on-call workflow. An engineer asks an assistant to investigate an alert. The assistant reads approved diagnostics and proposes restarting one service instance. The original request authorizes the investigation; the restart still needs the authority required by the team's policy.
+
+[Ryker](https://ryker.emisar.dev/) provides an example of the assistant role: a self-hosted engineering teammate that works through Slack, GitHub and a web console. [Emisar](https://emisar.dev/) provides the remote access controls: declared infrastructure actions through CLI or MCP, evaluated against policy with approval and audit. Both share ownership with this publication.
+
+When configuring this workflow, separate the diagnostic actions from change actions. For each one, record the permitted target, output destination and approval rule. An approval-required restart remains pending until authorized; unrelated, permitted diagnostics can continue. Retain the request and execution records so the next engineer can distinguish what the assistant proposed from what actually ran.
+
+This is a configuration example, not a report of a tested deployment. Use the [Ryker documentation](https://ryker.emisar.dev/docs/) and [Emisar security model](https://emisar.dev/docs/security-model) to review the integration, then verify the allowed, denied and approval-required paths in your own environment.

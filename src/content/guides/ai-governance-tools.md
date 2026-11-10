@@ -30,7 +30,7 @@ The examples below are selected to illustrate categories, not ranked recommendat
 
 [LangSmith distinguishes offline and online evaluation](https://docs.langchain.com/langsmith/evaluation). [OPA explicitly separates policy decisions from enforcement](https://www.openpolicyagent.org/docs). These distinctions determine which parts your application must integrate and operate.
 
-[Emisar](https://emisar.dev/) shares ownership with this site. It provides declared remote infrastructure actions through CLI or MCP. It does not replace enterprise policy ownership, model evaluation, identity lifecycle management or a local coding sandbox. Its inclusion here is a disclosed example of the action-control category.
+[Emisar](https://emisar.dev/) exposes declared remote infrastructure actions through CLI or MCP, with policy checks, approvals and audit records. It fits the action-control part of a governance system; enterprise policy ownership, model evaluation and identity lifecycle management remain separate responsibilities. Emisar shares ownership with this publication.
 
 ## Ask for evidence at the boundary you need
 

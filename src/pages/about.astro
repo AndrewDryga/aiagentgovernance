@@ -5,83 +5,77 @@ import { site } from "../site";
 
 <Base
   title={"About and editorial policy | " + site.name}
-  description={
-    "Who publishes " +
-    site.name +
-    ", how we check our guides, and how our products relate to the advice."
-  }
+  description="AI Agent Governance helps teams decide what an agent may do, who owns the decision and what evidence to keep."
 >
   <section class="page-intro wrap narrow">
     <p class="eyebrow">About this site</p>
-    <h1>
-      Useful advice.
-      <br />
-      Clear ownership.
-    </h1>
+    <h1>A handbook for governing AI agents.</h1>
     <p class="lede">
-      {site.name} is published by the team behind Emisar, Ryker and co:op.
+      AI Agent Governance helps teams decide what an agent may do, who owns the
+      decision and what evidence to keep.
     </p>
   </section>
   <div class="prose wrap narrow">
-    <h2>Why we publish these guides</h2>
+    <h2>From a policy to an operating decision</h2>
     <p>
-      Giving an agent tools creates practical questions. What can it read? What
-      can it change? Where should a request stop? Our guides explain the
-      controls and the tradeoffs, with examples you can use in your own system.
+      Giving an agent a tool raises concrete questions. Who owns its deployment?
+      Which systems may it reach? What needs approval? Who can stop it when the
+      scope changes? These guides turn those questions into records, checks and
+      procedures a team can use.
     </p>
     <p>
-      We build products in this area, so we have a commercial interest in some
-      of the topics. Product links are labeled, and the{" "}
-      <a href="/tools-we-build/">tools we build</a> page explains their
-      different roles.
+      Start with the{" "}
+      <a href="/guides/ai-agent-governance-framework/">governance framework</a>,
+      build an <a href="/guides/ai-agent-inventory/">agent inventory</a> and
+      review <a href="/guides/ai-agent-access-control/">access controls</a>. The{" "}
+      <a href="/tools/decision-record/">decision tool</a> helps document one
+      deployment. The <a href="/resources/">resource library</a> has templates
+      for reviews, incidents and ongoing ownership.
     </p>
-    <h2>How we write and check</h2>
+    <h2>Keep decisions tied to evidence</h2>
     <p>
-      Each guide links to the documents behind its technical claims. We prefer
-      primary sources: the standard, the project's documentation, or the code
-      that owns a behavior. Example policies and records are teaching material.
-      They are not reports of a customer's deployment.
-    </p>
-    <p>
-      Review dates mean we checked the article's content. They do not mean we
-      ran every vendor product, certified an integration, or tested a production
-      system. We label runnable examples, conceptual examples and browser-only
-      demonstrations separately.
-    </p>
-    <h2>Where the advice stops</h2>
-    <p>
-      A guardrail addresses a defined failure. A policy needs enforcement. A
-      sandbox has its own boundary. None of these makes every permitted action
-      harmless. Adapt the examples to your assets, permissions and recovery
-      procedures.
+      The examples distinguish a policy statement from an enforced permission
+      and a documented feature from an observed result. A useful decision record
+      names the permitted work, the person responsible and the evidence behind
+      approval. It also says what would trigger another review.
     </p>
     <p>
-      Our governance templates are engineering starting points. Requirements for
-      a particular industry, contract or jurisdiction need the right specialist
-      review.
+      Templates are engineering starting points. Requirements for a particular
+      industry, contract or jurisdiction need the appropriate specialist review.
+    </p>
+    <h2>Sources and review dates</h2>
+    <p>
+      Technical claims link to primary sources: standards, project documentation
+      or the code that implements a behavior. Each guide has a review date, a
+      source list and a downloadable Markdown version. Definitions and examples
+      can be cited using the citation at the end of the article.
+    </p>
+    <p>
+      A review date records a content check. Product trials and deployment tests
+      need their own evidence. Examples say whether they are conceptual,
+      runnable or browser-only demonstrations; fictional records are labeled.
+    </p>
+    <h2>Product examples and ownership</h2>
+    <p>
+      A product belongs in a guide when its documented behavior helps explain
+      the topic. Comparisons distinguish what the documentation says from what a
+      reader still needs to test. Instructions and templates should remain
+      useful with other implementations.
+    </p>
+    <p>
+      This publication shares ownership with Emisar, Ryker and co:op. Relevant
+      examples disclose that relationship beside the mention.
     </p>
     <h2>Privacy</h2>
     <p>
       The interactive tools run in your browser. They do not send the values you
       enter to us. We do not add analytics, advertising scripts or tracking
-      cookies. Cloudflare Pages serves the site and may process request data under{" "}
+      cookies. Cloudflare Pages serves the site and may process request data
+      under{" "}
       <a href="https://www.cloudflare.com/privacypolicy/">
         Cloudflare's privacy policy
       </a>
       .
-    </p>
-    <h2>Related reading</h2>
-    <p>
-      {site.theme === "guardrails" ? (
-        <a href="https://aiagentgovernance.dev/">
-          AI Agent Governance covers ownership, permissions and operating
-          procedures.
-        </a>
-      ) : (
-        <a href="https://aiguardrails.dev/">
-          AI Guardrails covers technical checks, failure cases and testing.
-        </a>
-      )}
     </p>
   </div>
 </Base>
