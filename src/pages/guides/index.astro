@@ -53,9 +53,25 @@ const topics = guardrails
         "Policies, risk assessments and checks before the next release.",
       ],
     ];
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: site.name + " guides",
+  url: site.origin + "/guides/",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListOrder: "https://schema.org/ItemListUnordered",
+    numberOfItems: guides.length,
+    itemListElement: guides.map((guide) => ({
+      "@type": "ListItem",
+      name: guide.data.title,
+      url: site.origin + "/guides/" + guide.id + "/",
+    })),
+  },
+}];
 ---
 
-<Base
+<Base schema={schema}
   title={"Guide library | " + site.name}
   description={
     guardrails

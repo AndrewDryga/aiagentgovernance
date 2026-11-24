@@ -1,6 +1,6 @@
 ---
 title: "Non-human identities and AI agents"
-description: "Connect service accounts, workload identities and delegated users to the agent work they authorize."
+description: "Map service accounts, workload identities and delegated users to AI agent tasks. Separate identity, credentials and ownership, then review access."
 category: "Access"
 primaryKeyword: "non human identities"
 relatedKeywords: ["non-human identity", "ai agent identity management"]

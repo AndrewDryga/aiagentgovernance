@@ -1,6 +1,6 @@
 ---
 title: "What is AI agent governance?"
-description: "Understand who should own an AI agent, what it may do, and how to review its actions."
+description: "Learn what AI agent governance covers: owners, permitted work, approvals and evidence. Follow a diagnostic example from task scope to action review."
 category: "Foundations"
 primaryKeyword: "ai agent governance"
 relatedKeywords:

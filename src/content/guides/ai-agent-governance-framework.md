@@ -1,6 +1,6 @@
 ---
-title: "An AI agent governance framework for engineering teams"
-description: "Build a repeatable review process for agent ownership, access, testing and changes."
+title: "AI agent governance framework"
+description: "Build an AI agent governance review around owners, permissions, tests and release evidence. Define exceptions and when a change needs another review."
 category: "Reviews & policy"
 primaryKeyword: "ai agent governance framework"
 relatedKeywords:

@@ -10,8 +10,8 @@ const schema = [{
   numberOfItems: directory.tools.length,
   itemListElement: directory.tools.map((tool, index) => ({
     "@type": "ListItem", position: index + 1,
-    item: { "@type": "SoftwareApplication", name: tool.name, url: tool.url,
-      applicationCategory: "DeveloperApplication", description: tool.name + " " + tool.summary }
+    item: { "@type": "WebPage", name: tool.name, url: tool.url,
+      description: tool.name + " " + tool.summary }
   }))
 }];
 ---

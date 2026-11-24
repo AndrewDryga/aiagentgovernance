@@ -1,6 +1,6 @@
 ---
 title: "Build an AI agent inventory"
-description: "Connect each deployment to its owner, identities, tools, target systems and retirement state."
+description: "Build an AI agent inventory that connects deployments to owners, identities, tools and target systems. Keep it current through changes and retirement."
 category: "Operations"
 primaryKeyword: "ai agent inventory"
 relatedKeywords: ["agent inventory", "ai agent registry"]

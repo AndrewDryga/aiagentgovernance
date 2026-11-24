@@ -1,6 +1,6 @@
 ---
 title: "Least privilege for AI agents"
-description: "Limit an agent's authority to the actions, resources and time its task actually needs."
+description: "Limit AI agents to the actions, resources and time each task needs. Review indirect access, remove unused tools and keep a small permission record."
 category: Access
 primaryKeyword: "least privilege ai agents"
 relatedKeywords:

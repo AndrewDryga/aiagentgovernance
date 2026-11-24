@@ -1,6 +1,6 @@
 ---
-title: "Human in the loop AI that people can actually review"
-description: "Design approval steps that give a person enough context and authority to make a useful decision."
+title: "Human-in-the-loop AI: useful approvals"
+description: "Design AI approval steps people can actually review. Show the target, expected effect and recovery options, and plan for unavailable reviewers."
 category: Operations
 primaryKeyword: "human in the loop ai"
 relatedKeywords:

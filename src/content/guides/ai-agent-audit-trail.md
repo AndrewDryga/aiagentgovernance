@@ -1,6 +1,6 @@
 ---
 title: "What belongs in an AI agent audit trail"
-description: "Record agent requests, access decisions and outcomes without copying secrets into your logs."
+description: "Record AI agent requests, permission decisions and results without logging secrets. Use records from the systems running the actions to see what happened."
 category: Operations
 primaryKeyword: "ai agent audit trail"
 relatedKeywords:

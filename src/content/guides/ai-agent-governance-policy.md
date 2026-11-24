@@ -1,6 +1,6 @@
 ---
 title: "Write an AI governance policy for agents"
-description: "Use a practical policy structure that connects agent permissions to owners and enforcement."
+description: "Write an AI governance policy with clear owners, permitted actions, approval rules and enforcement points. Start with a practical policy outline."
 category: "Reviews & policy"
 primaryKeyword: "ai governance policy"
 relatedKeywords:

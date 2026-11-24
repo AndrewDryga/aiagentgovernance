@@ -1,6 +1,6 @@
 ---
 title: "AI agent access control at the action boundary"
-description: "Decide which agent may perform which action on which resource, and enforce the decision."
+description: "Define which actions an AI agent may take on each resource. Compare RBAC and ABAC, bind approvals to requests, and test alternate access paths."
 category: Access
 primaryKeyword: "ai agent access control"
 relatedKeywords:

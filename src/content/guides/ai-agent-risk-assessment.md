@@ -1,6 +1,6 @@
 ---
 title: "How to assess the risk of an AI agent"
-description: "Review the harm an agent could cause, the controls that limit it, and the evidence still missing."
+description: "Assess an AI agent’s risks by tracing inputs to real effects. Work through failure scenarios, recovery options and the evidence needed for release."
 category: "Reviews & policy"
 primaryKeyword: "ai risk assessment"
 relatedKeywords:

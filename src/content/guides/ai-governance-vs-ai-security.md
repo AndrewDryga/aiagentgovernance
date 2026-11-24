@@ -1,6 +1,6 @@
 ---
 title: "AI governance vs AI security"
-description: "Understand how governance decisions and security controls work together in an agent deployment."
+description: "Compare AI governance decisions with the security controls that enforce them. Follow one agent request to find gaps in ownership, access and evidence."
 category: "Foundations"
 primaryKeyword: "ai governance vs ai security"
 relatedKeywords:

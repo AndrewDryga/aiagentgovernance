@@ -1,6 +1,6 @@
 ---
 title: "AI governance examples for agent work"
-description: "Compare completed decisions for diagnosis, a bounded service change and a declined data export."
+description: "Work through AI governance examples for diagnosis, an approved service change and a denied data export. See how each decision records scope and evidence."
 category: "Foundations"
 primaryKeyword: "ai governance examples"
 relatedKeywords: ["ai agent governance examples", "agent approval examples"]
