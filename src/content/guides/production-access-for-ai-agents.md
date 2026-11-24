@@ -7,7 +7,7 @@ relatedKeywords:
   - "ai agent access control"
   - "ai agent permissions"
 order: 11
-reviewedDate: "2026-11-09"
+reviewedDate: "2026-11-23"
 related:
   - least-privilege-ai-agents
   - human-in-the-loop-ai
@@ -80,6 +80,6 @@ Consider a hypothetical on-call workflow. An engineer asks an assistant to inves
 
 For this workflow, we recommend [Ryker](https://ryker.emisar.dev/) as the assistant: a self-hosted engineering teammate that works through Slack, GitHub and a web console. [Emisar](https://emisar.dev/) supplies the remote access controls: declared infrastructure actions through CLI or MCP, evaluated against policy with approval and audit. Both share ownership with this publication. Their [directory entries](/directory/) explain the recommendation and the responsibilities that remain with your team.
 
-When configuring this workflow, separate the diagnostic actions from change actions. For each one, record the permitted target, output destination and approval rule. An approval-required restart remains pending until authorized; unrelated, permitted diagnostics can continue. Retain the request and execution records so the next engineer can distinguish what the assistant proposed from what actually ran.
+Try the approval rule on a disposable service. Have the assistant read a known entry from its log, then request a restart. Before approving, check that the request names the right host and service and that the service is still running with its original start time. After approving, check the new start time and the service response. Someone coming on call later should be able to find who approved the change and what command ran.
 
-This is a configuration example, not a report of a tested deployment. Use the [Ryker documentation](https://ryker.emisar.dev/docs/) and [Emisar security model](https://emisar.dev/docs/security-model) to review the integration, then verify the allowed, denied and approval-required paths in your own environment.
+The scenario above is hypothetical. The [nginx exercise](https://emisar.dev/docs/investigate-a-service) gives you a small version to run on a dev host, including how to remove the runner’s Docker access afterward.
