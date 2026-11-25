@@ -113,9 +113,26 @@ const resources: {
         href: "/downloads/audit-record-example.json",
       },
     ];
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Templates and downloads | " + site.name,
+  url: site.origin + "/resources/",
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: resources.length,
+    itemListElement: resources.map((resource, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: resource.title,
+      url: new URL(resource.href, site.origin).href,
+    })),
+  },
+}];
 ---
 
 <Base
+  schema={schema}
   title={"Templates and downloads | " + site.name}
   description={
     "Download practical " +

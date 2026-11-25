@@ -62,8 +62,9 @@ const schema = [{
     "@type": "ItemList",
     itemListOrder: "https://schema.org/ItemListUnordered",
     numberOfItems: guides.length,
-    itemListElement: guides.map((guide) => ({
+    itemListElement: guides.map((guide, index) => ({
       "@type": "ListItem",
+      position: index + 1,
       name: guide.data.title,
       url: site.origin + "/guides/" + guide.id + "/",
     })),
