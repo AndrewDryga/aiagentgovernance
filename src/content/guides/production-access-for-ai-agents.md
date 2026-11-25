@@ -1,13 +1,13 @@
 ---
 title: "Production access for AI agents"
-description: "Give an agent useful operational access with explicit scope, approval rules and recoverable execution."
+description: "Give an agent enough access to diagnose a failing service. Decide which logs it can read, who can approve a restart and how to stop a run."
 category: Access
 primaryKeyword: "production access for ai agents"
 relatedKeywords:
   - "ai agent access control"
   - "ai agent permissions"
 order: 11
-reviewedDate: "2026-11-23"
+reviewedDate: "2026-11-24"
 related:
   - least-privilege-ai-agents
   - human-in-the-loop-ai
@@ -19,67 +19,60 @@ sources:
     url: "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
   - title: "MCP Security Best Practices"
     url: "https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices"
-answer: "Production access for an AI agent should begin with a specific operational job and the smallest set of actions that makes it useful. Reading a service's health, collecting diagnostics and changing its configuration are separate capabilities. Decide which ones the deployment needs before giving it credentials."
+answer: "Start with one job, such as finding out why a service keeps restarting. Give the agent the logs and status checks it needs. Decide who can approve a change before you let the agent request one."
 ---
 
-The access route can be a CLI, an API or MCP. Each still needs a clear answer to the same question: what can the receiving system actually do on this agent's behalf?
+<span id="start-with-a-bounded-diagnostic-task"></span>
 
-## Start with a bounded diagnostic task
+## Give the agent one incident to investigate
 
-Choose a service whose owner can explain the normal operating state and recognize a useful result. Give the agent access to approved telemetry and a narrow set of diagnostic operations.
+Suppose the checkout pod keeps restarting. The previous container’s log can tell you what went wrong just before it stopped. Here’s what an on-call engineer could authorize in staging before trying the same setup in production.
 
-Use the [risk assessment](/guides/ai-agent-risk-assessment/) to define the output destination as part of the task. Permission to read internal logs does not imply permission to send them to any external system. Filter sensitive fields before they enter the agent's context when the workflow does not require them.
+| Decision | Example |
+| --- | --- |
+| Target | The `checkout` workload in the staging cluster |
+| What the agent can read | Pod status, recent events for that pod and the previous container’s log |
+| What it can share | A short diagnosis in the incident ticket. Raw logs stay in the team’s workspace because they may contain customer data. |
+| When it needs approval | The service owner must approve a restart or a change to the deployment. |
 
-The first acceptance test should show the complete path: the agent requests an allowed diagnostic, the intended system executes it, and an operator can find the result and its audit record.
+You can set up these checks with Kubernetes permissions. The [Emisar Kubernetes pack](https://emisar.dev/packs/kubernetes) shows how to expose them as individual tools. For help deciding what the agent can quote from logs, see the [risk assessment guide](/guides/ai-agent-risk-assessment/).
 
-## Review the authority behind each route
+<span id="review-the-authority-behind-each-route"></span>
 
-| Access route | What to inspect                                                                     |
-| ------------ | ----------------------------------------------------------------------------------- |
-| CLI          | Process identity, accessible credentials, argument validation and reachable targets |
-| Direct API   | Token scope, resource authorization and retry behavior                              |
-| MCP tool     | Server implementation, downstream credentials and tool-specific permissions         |
+## Check whose permissions the tool uses
 
-If an interface exposes declared remote actions, also review each action definition and its permitted arguments. Check how policy and executor validation apply to that definition.
+| Access route | What to check |
+| --- | --- |
+| CLI | Which account runs it? What credentials can it read? Which arguments and targets does it accept? |
+| API | Which resources can the token access? What happens if a request is retried? |
+| MCP tool | Which account does the server use, and which actions and arguments will it accept? |
 
-[OWASP recommends avoiding open-ended tool functionality where narrower operations can meet the need](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/). An operation that reads a service's status is easier to review than a general command interface whose possible effects depend on arbitrary input.
+Follow one request all the way to the service. A tool called “read status” should only accept the arguments it needs, and its account should only have the permissions it needs. A second credential that gives the agent admin access would undo that work. [OWASP guidance on agent tools](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/) · [AWS IAM guidance](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 
-## Add one change capability at a time
+<span id="check-routes-around-the-controls"></span>
 
-After diagnostics are useful, select a change with a clear precondition and a known recovery procedure. Define the resource scope and any concurrency or rate limits.
+For a CLI, check inherited environment variables and mounted files. For MCP, check how the server handles tokens and forwards requests. A coding sandbox can keep a token off the agent’s filesystem while a connected tool still lets it act on production. [MCP security guidance](https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices)
 
-A restart request, for example, should identify the exact service instance. It should also explain the expected disruption and how the operator will check recovery. If [human approval](/guides/human-in-the-loop-ai/) is required, execution waits until the specific request is authorized.
+<span id="add-one-change-capability-at-a-time"></span>
 
-Avoid granting a broad maintenance role just to unblock one operation. [AWS's IAM guidance](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) recommends permissions limited to required actions and resources. Apply that reasoning to the downstream account as well as the visible tool.
+## Try a restart on a disposable service
 
-## Treat uncertain outcomes as operational work
+Ask the agent to read a known log entry, then request a restart. The [approval request](/guides/human-in-the-loop-ai/) should name the exact host and service, the expected disruption and how you’ll check recovery. Set any limits on how often it can restart or how many instances it can change at once.
 
-A lost connection does not establish whether an operation ran. Before retrying a change, inspect its existing operation record or the target's state through the supported recovery path.
+<span id="example-investigate-an-alert-before-approving-a-change"></span>
 
-Design the tool response so the agent can distinguish rejection, pending approval, execution failure and an unknown outcome. Those states require different next steps. Returning the same generic error for all of them encourages inappropriate retries.
+While approval is pending, check that the service still has its original start time. Approve the request, then check the new start time and make a request to the service. Can the next person on call find who approved the restart and what ran?
 
-Test interruption after dispatch in a nonproduction environment. Confirm that the agent can report uncertainty accurately and that an operator can resolve it without guessing.
+[Ryker](https://ryker.emisar.dev/) can bring the request to Slack, and [Emisar](https://emisar.dev/) checks whether the action is allowed. Both products share an owner with this publication. The [nginx walkthrough](https://emisar.dev/docs/investigate-a-service) lets you try the approval on a dev host and remove the runner’s Docker access afterward. Our [directory](/directory/) covers both tools.
 
-## Check routes around the controls
+<span id="treat-uncertain-outcomes-as-operational-work"></span>
 
-Review whether the agent has another credential or network path to the same target. A policy-controlled tool offers limited protection if the process can also reach an unrestricted administrative API.
+## Know when it’s safe to retry
 
-For MCP, inspect the [protocol's security guidance](https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices), including token handling and proxy behavior. For CLI workflows, inspect inherited environment variables and files available to the process.
+If the connection drops after a restart request, the restart may already be underway. Check the request record or the service’s start time before trying again. Test that case in staging. The tool should tell the agent whether a request was denied, is waiting for approval, failed during execution or has an unknown outcome.
 
-A coding sandbox and production authorization serve different boundaries. Keeping an agent's development environment isolated does not determine which remote actions it should receive. Test both boundaries when the same workflow spans them.
+<span id="set-a-clear-stop-procedure"></span>
 
-## Set a clear stop procedure
+## Make sure someone can stop the work
 
-An operator should know how to block new requests and how to inspect work already accepted. Revoking a credential may stop future calls while an active operation continues.
-
-Include pending approvals and queued requests in the procedure. After a suspension, require a deliberate recovery decision so old work does not resume unexpectedly. Verify the procedure with the people who will use it during an incident.
-
-## Example: investigate an alert before approving a change
-
-Consider a hypothetical on-call workflow. An engineer asks an assistant to investigate an alert. The assistant reads approved diagnostics and proposes restarting one service instance. The original request authorizes the investigation; the restart still needs the authority required by the team's policy.
-
-For this workflow, we recommend [Ryker](https://ryker.emisar.dev/) as the assistant: a self-hosted engineering teammate that works through Slack, GitHub and a web console. [Emisar](https://emisar.dev/) supplies the remote access controls: declared infrastructure actions through CLI or MCP, evaluated against policy with approval and audit. Both share ownership with this publication. Their [directory entries](/directory/) explain the recommendation and the responsibilities that remain with your team.
-
-Try the approval rule on a disposable service. Have the assistant read a known entry from its log, then request a restart. Before approving, check that the request names the right host and service and that the service is still running with its original start time. After approving, check the new start time and the service response. Someone coming on call later should be able to find who approved the change and what command ran.
-
-The scenario above is hypothetical. The [nginx exercise](https://emisar.dev/docs/investigate-a-service) gives you a small version to run on a dev host, including how to remove the runner’s Docker access afterward.
+Try suspending access while a job is running. Can the person on call block new requests and see which ones already started? Check the queue and pending approvals too. Decide which requests to cancel and which ones an operator must review before work resumes.
